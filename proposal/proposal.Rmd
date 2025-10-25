@@ -15,7 +15,7 @@ squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 
 The Squirrel Census is a project that was first done in October 2018 when a group of volunteers gathered to collect data on the squirrels of New York City's Central Park. The volunteers made observations about the squirrels locations, physical characteristics, and behaviors.
 
-The dataset contains ____ observations and ____ variables. As we analyze this dataset, we hope to better understand the squirrels of Central Park. Some questions we are interested in answering include:
+The dataset contains `r nrow(squirrels)` observations and `r ncol(squirrels)` variables. As we analyze this dataset, we hope to better understand the squirrels of Central Park. Some questions we are interested in answering include:
 1. Are some squirrels more likely to be foraging than others?
 2. Are the squirrels above ground more often in the morning or evening shift?
 3. Is there a variation in frequency of interaction with humans by age of the squirrels?
