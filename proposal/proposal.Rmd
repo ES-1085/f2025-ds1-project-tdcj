@@ -8,8 +8,7 @@ output: github_document
 library(tidyverse)
 library(broom)
 library(readxl)
-Central_Park_Squirrel_Census <- read_excel(2018_Central_Park_Squirrel_-Squirrel_Data.CSV)
-## Add any additional packages you are using here
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 ```
 
 ## 1. Introduction
