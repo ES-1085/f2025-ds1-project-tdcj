@@ -24,7 +24,10 @@ Text goes here. Place your data in the /data folder, and add dimensions and code
 # Code goes here
 # Read in your data file
 # Print the output of glimpse() or skim()
-squirrel <- read_csv("../data/squirrel-data.csv")
+
+library(readr)
+squirrels <- read_csv("proposal/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+View(squirrels)
 
 ```
 
