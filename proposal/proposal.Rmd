@@ -7,8 +7,10 @@ output: github_document
 ```{r load-packages, message = FALSE}
 library(tidyverse)
 library(broom)
-library(readxl)
+library(readr)
 squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+
+#View(squirrels)
 ```
 
 ## 1. Introduction
