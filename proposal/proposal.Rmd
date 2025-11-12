@@ -8,6 +8,8 @@ output: github_document
 library(tidyverse)
 library(broom)
 library(readr)
+install.packages("leaflet")
+library(leaflet)
 squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 
 #View(squirrels)
@@ -41,7 +43,24 @@ Text goes here.
 
 
 ```{r}
-# Code goes here
-# Code to calculate summary statistics
-# Code for a visualization
+
+library(leaflet)
+squirrels <- squirrels |>
+  mutate(lng = substring(`Lat/Long`, 8, 22),
+         lat = substring(`Lat/Long`, 26, 40))
+
+squirrels$lng <- as.numeric(squirrels$lng)
+squirrels$lat <- as.numeric(squirrels$lat)
+
+leaflet(squirrels) |>
+  addTiles() |>
+  setView(lng = -73.9651,
+          lat = 40.7833,
+          zoom = 13) |>
+  addCircleMarkers(lat = ~lat,
+             lng = ~lng,
+             clusterOptions = markerClusterOptions(),
+             color = squirrels$`Primary Fur Color`,
+             fillColor = squirrels$`Primary Fur Color`)
+
 ```
