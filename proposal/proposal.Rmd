@@ -64,3 +64,24 @@ leaflet(squirrels) |>
              fillColor = squirrels$`Primary Fur Color`)
 
 ```
+
+```{r}
+Squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") %>%
+  select(Running, Chasing, Climbing, Eating, Foraging) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Activity",
+    values_to = "Observed"
+  ) %>%
+  filter(Observed == TRUE) %>%
+  count(Activity, name = "Frequency")
+
+ggplot(activity_counts, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+  geom_col() +
+  labs(
+    title = "Comparison of Squirrel Activities",
+    x = "Squirrel Behavior",
+    y = "Frequency"
+  ) 
+```
+
