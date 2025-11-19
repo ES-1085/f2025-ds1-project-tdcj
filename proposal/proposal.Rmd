@@ -1,0 +1,48 @@
+<<<<<<< HEAD
+=======
+---
+title: "Project proposal"
+author: "TDCJ"
+output: github_document
+---
+
+```{r load-packages, message = FALSE}
+library(tidyverse)
+library(broom)
+library(readxl)
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+```
+
+## 1. Introduction
+
+The Squirrel Census is a project that was first done in October 2018 when a group of volunteers gathered to collect data on the squirrels of New York City's Central Park. The volunteers made observations about the squirrels locations, physical characteristics, and behaviors.
+
+The dataset contains `r nrow(squirrels)` observations and `r ncol(squirrels)` variables. As we analyze this dataset, we hope to better understand the squirrels of Central Park. Some questions we are interested in answering include:
+1. Are some squirrels more likely to be foraging than others?
+2. Are the squirrels above ground more often in the morning or evening shift?
+3. Is there a variation in frequency of interaction with humans by age of the squirrels?
+
+## 2. Data
+
+Text goes here. Place your data in the /data folder, and add dimensions and codebook to the README in that folder. Then print out the output of glimpse() or skim() of your data frame.
+
+```{r}
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+glimpse(squirrels)
+```
+
+## 3. Data analysis plan
+
+Text goes here.
+- What variables will you visualize to explore your research questions?
+- Will there be any other data that you need to find to help with your research question?
+- Very preliminary exploratory data analysis, including some summary statistics and visualizations, along with some explanation on how they help you learn more about your data. (You can add to these later as you work on your project.)
+- The data visualization(s) that you believe will be useful in exploring your question(s). (You can update these later as you work on your project.)
+
+
+```{r}
+# Code goes here
+# Code to calculate summary statistics
+# Code for a visualization
+```
+>>>>>>> d74e7d38294dc87f12e2963f8f2adfce5dd744c9
