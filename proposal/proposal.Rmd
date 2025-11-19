@@ -29,7 +29,8 @@ The dataset contains `r nrow(squirrels)` observations and `r ncol(squirrels)` va
 Text goes here. Place your data in the /data folder, and add dimensions and codebook to the README in that folder. Then print out the output of glimpse() or skim() of your data frame.
 
 ```{r}
-X2018_Central_Park_Squirrel_Census_Squirrel_Data_1_ <- read_csv("proposal/2018_Central_Park_Squirrel_Census_-_Squirrel_Data (1).csv")
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+glimpse(squirrels)
 
 
 ```
