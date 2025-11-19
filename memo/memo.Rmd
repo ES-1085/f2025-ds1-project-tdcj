@@ -2,6 +2,7 @@
 title: "Project memo"
 author: "Team name"
 output: github_document
+always_allow_html: true
 ---
 
 This document should contain a detailed account of the data clean up for your data and the design choices you are making for your plots. For instance you will want to document choices you've made that were intentional for your graphic, e.g. color you've chosen for the plot. Think of this document as a code script someone can follow to reproduce the data cleaning steps and graphics in your handout.
@@ -9,6 +10,11 @@ This document should contain a detailed account of the data clean up for your da
 ```{r load-packages, message = FALSE}
 library(tidyverse)
 library(broom)
+library(readxl)
+library(leaflet)
+
+squirrels <- read_csv("../data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+
 ```
 
 ## Data Clean Up Steps for Overall Data
@@ -22,6 +28,29 @@ library(broom)
 ### Step 2: ________
 
 ## Plots
+```{r leaflet-map}
+
+squirrels <- squirrels |>
+  mutate(lng = substring(`Lat/Long`, 8, 22),
+         lat = substring(`Lat/Long`, 26, 40))
+
+squirrels$lng <- as.numeric(squirrels$lng)
+squirrels$lat <- as.numeric(squirrels$lat)
+
+leaflet(squirrels) |>
+  addTiles() |>
+  setView(lng = -73.9651,
+          lat = 40.7833,
+          zoom = 13) |>
+  addCircleMarkers(lat = ~lat, 
+             lng = ~lng, 
+             clusterOptions = markerClusterOptions(),
+             color = squirrels$`Primary Fur Color`,
+             fillColor = squirrels$`Primary Fur Color`,
+             popup = squirrels$`Unique Squirrel ID`)
+
+```
+
 
 ### ggsave example for saving plots
 
