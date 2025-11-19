@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 ---
 title: "Project proposal"
 author: "TDCJ"
@@ -10,7 +8,7 @@ output: github_document
 library(tidyverse)
 library(broom)
 library(readr)
-install.packages("leaflet")
+# install.packages("leaflet")
 library(leaflet)
 squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 
@@ -46,44 +44,22 @@ Text goes here.
 - The data visualization(s) that you believe will be useful in exploring your question(s). (You can update these later as you work on your project.)
 
 
-<<<<<<< HEAD
-
-=======
 ```{r}
-
-library(leaflet)
-squirrels <- squirrels |>
-  mutate(lng = substring(`Lat/Long`, 8, 22),
-         lat = substring(`Lat/Long`, 26, 40))
-
-squirrels$lng <- as.numeric(squirrels$lng)
-squirrels$lat <- as.numeric(squirrels$lat)
-
-leaflet(squirrels) |>
-  addTiles() |>
-  setView(lng = -73.9651,
-          lat = 40.7833,
-          zoom = 13) |>
-  addCircleMarkers(lat = ~lat,
-             lng = ~lng,
-             clusterOptions = markerClusterOptions(),
-             color = squirrels$`Primary Fur Color`,
-             fillColor = squirrels$`Primary Fur Color`)
-
-```
-
-```{r}
-Squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") %>%
-  select(Running, Chasing, Climbing, Eating, Foraging) %>%
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") |>
+  select(Running, Chasing, Climbing, Eating, Foraging) |>
   pivot_longer(
     cols = everything(),
     names_to = "Activity",
     values_to = "Observed"
-  ) %>%
-  filter(Observed == TRUE) %>%
+  ) |>
+  filter(Observed == TRUE) |>
   count(Activity, name = "Frequency")
 
+<<<<<<< HEAD
 ggplot(Squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+=======
+ggplot(squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+>>>>>>> dd95ddb1fd147876e9a55e1a5bb91787d8fedf21
   geom_col() +
   labs(
     title = "Comparison of Squirrel Activities",
@@ -91,5 +67,5 @@ ggplot(Squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = A
     y = "Frequency"
   ) 
 ```
->>>>>>> cc9c443ec1b859ccf61eccd63c00c6cc7ef9570a
+
 
