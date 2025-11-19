@@ -76,7 +76,7 @@ Squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") %
   filter(Observed == TRUE) %>%
   count(Activity, name = "Frequency")
 
-ggplot(activity_counts, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+ggplot(Squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
   geom_col() +
   labs(
     title = "Comparison of Squirrel Activities",
