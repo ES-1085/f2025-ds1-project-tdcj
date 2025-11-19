@@ -45,7 +45,7 @@ Text goes here.
 
 
 ```{r}
-squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") |>
+activities <- squirrels |>
   select(Running, Chasing, Climbing, Eating, Foraging) |>
   pivot_longer(
     cols = everything(),
@@ -55,7 +55,7 @@ squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") |
   filter(Observed == TRUE) |>
   count(Activity, name = "Frequency")
 
-ggplot(squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+ggplot(activities, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
   geom_col() +
   labs(
     title = "Comparison of Squirrel Activities",
