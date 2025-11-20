@@ -90,7 +90,27 @@ These data cleaning sections are optional and depend on if you have some data cl
 #### Final Plot 1
 
 ```{r}
-
+squirrels %>%
+  select(Shift, Approaches, Indifferent, `Runs from`) %>%
+  pivot_longer(
+    cols = c(Approaches, Indifferent, `Runs from`),
+    names_to = "Interaction",
+    values_to = "Observed"
+  ) %>%
+  filter(Observed == TRUE) %>%
+  count(Shift, Interaction, name = "Frequency") %>%
+  ggplot(aes(
+    x = Interaction,
+    y = Frequency,
+    fill = Shift 
+  )) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Squirrel-Human interactions by time of shift (AM or PM)",
+    x = "Squirrel Behavior",
+    y = "Number of Squirrels Observed Exhibiting Behavior",
+    fill = "Time of shift"
+  ) 
 ```
 
 
