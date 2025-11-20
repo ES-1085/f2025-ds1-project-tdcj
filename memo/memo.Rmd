@@ -83,13 +83,44 @@ ggsave("example-starwars-wide.png", width = 6, height = 4)
 These data cleaning sections are optional and depend on if you have some data cleaning steps specific to a particular plot
 
 ```{r}
+activities <- squirrels |>
+  mutate("No Activity" = case_when (Running == FALSE & 
+                                    Chasing == FALSE & 
+                                    Climbing == FALSE & 
+                                    Eating == FALSE & 
+                                    Foraging == FALSE ~ TRUE,
+                                  )) |>
+  select(Shift, Running, Chasing, Climbing, Eating, Foraging, "No Activity") |>
+  pivot_longer(
+    cols = c(Running, Chasing, Climbing, Eating, Foraging, "No Activity"),
+    names_to = "Activity",
+    values_to = "Observed"
+  ) |>
+  filter(Observed == TRUE) |>
+  count(Activity, Shift, name = "Frequency") |>
+  group_by(Activity) |>
+  mutate(Total_Frequency = sum(Frequency)) |>
+  ungroup() |>
+  group_by(Shift) |>
+  mutate(Percent = (100*(Frequency / sum(Frequency)))) |>
+  ungroup()
 
+ggplot(activities, aes(x = reorder(Activity, -Total_Frequency), 
+                      y = Percent, fill = Shift)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Comparison of Squirrel Activities",
+    x = "Squirrel Behavior",
+    y = "Percentage"
+  ) 
 ```
 
 
 #### Final Plot 1
 
-```{r}
+```{r }
+
+
 
 ```
 
