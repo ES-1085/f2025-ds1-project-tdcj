@@ -8,22 +8,29 @@ date: "2025-11-19"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r squirrels-map, echo=FALSE, message=FALSE, warning=FALSE}
+squirrels <- squirrels |>
+  mutate(lng = substring(`Lat/Long`, 8, 22),
+         lat = substring(`Lat/Long`, 26, 40)) |>
+  
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+squirrels$lng <- as.numeric(squirrels$lng)
+squirrels$lat <- as.numeric(squirrels$lat)
 
-```{r cars}
-summary(cars)
+squirrels_map <- leaflet(squirrels) |>
+  addTiles() |>
+  setView(lng = -73.9651,
+          lat = 40.7833,
+          zoom = 13) |>
+  addCircleMarkers(lat = ~lat, 
+             lng = ~lng, 
+             clusterOptions = markerClusterOptions(),
+             color = squirrels$`Primary Fur Color`,
+             fillColor = squirrels$`Primary Fur Color`,
+             popup = squirrels$`Unique Squirrel ID`)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
