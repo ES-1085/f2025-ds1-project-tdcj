@@ -5,8 +5,12 @@ TDCJ
 ``` r
 library(tidyverse)
 library(broom)
-library(readxl)
+library(readr)
+# install.packages("leaflet")
+library(leaflet)
 squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+
+#View(squirrels)
 ```
 
 ## 1. Introduction
@@ -94,7 +98,35 @@ visualization(s) that you believe will be useful in exploring your
 question(s). (You can update these later as you work on your project.)
 
 ``` r
-# Code goes here
-# Code to calculate summary statistics
-# Code for a visualization
+squirrels <- read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv") |>
+  select(Running, Chasing, Climbing, Eating, Foraging) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "Activity",
+    values_to = "Observed"
+  ) |>
+  filter(Observed == TRUE) |>
+  count(Activity, name = "Frequency")
 ```
+
+    ## Rows: 3023 Columns: 31
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (14): Unique Squirrel ID, Hectare, Shift, Age, Primary Fur Color, Highli...
+    ## dbl  (4): X, Y, Date, Hectare Squirrel Number
+    ## lgl (13): Running, Chasing, Climbing, Eating, Foraging, Kuks, Quaas, Moans, ...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+ggplot(squirrels, aes(x = reorder(Activity, -Frequency), y = Frequency, fill = Activity)) +
+  geom_col() +
+  labs(
+    title = "Comparison of Squirrel Activities",
+    x = "Squirrel Behavior",
+    y = "Frequency"
+  ) 
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->

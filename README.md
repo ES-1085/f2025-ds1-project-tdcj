@@ -19,8 +19,8 @@ Our handout can be found [here](handout/handout.pdf).
 
 ## Memo
 
-A link to the code and how we created our graphics in our memo can be found [here](memo/memo.html).
+A link to the code and how we created our graphics in our memo can be found [here](memo/memo.Rmd).
 
 ## Data
-
-City of New York. (2018) _2018 Central Park Squirrel Census._ (Data Set) <https://catalog.data.gov/dataset/2018-central-park-squirrel-census-squirrel-data>
+Our data can be found [here](data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv)
+City of New York. (2018) (_2018 Central Park Squirrel Census._ (Data Set) <https://catalog.data.gov/dataset/2018-central-park-squirrel-census-squirrel-data>

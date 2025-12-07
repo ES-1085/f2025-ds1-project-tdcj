@@ -32,7 +32,7 @@ my_colors <- brewer.pal(n = 4, name = "Paired")
 
 
 
-## Leaflet Map:
+### Final Plot 1 - Leaflet Map:
 
 To build the leaflet map, the first step was to create separate variables for
 the latitude and longitude, as both were combined in the original dataset. This 
@@ -76,11 +76,6 @@ squirrels_map <- leaflet(squirrels) |>
 # Saving the HTML widget
 saveWidget(squirrels_map, file = "index.html", selfcontained = TRUE)
 ```
-
-
-
-### Final Plot 1:
-This plot describes
 
 ```{r squirrel-activities}
 # Creating a "No Activity" variable
@@ -129,7 +124,7 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
 ```
 
 
-#### Final Plot 2
+#### Final Plot 3
 
 ```{r squirrel-human-behavior}
 
