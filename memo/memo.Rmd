@@ -35,17 +35,32 @@ my_colors <- brewer.pal(n = 4, name = "Paired")
 ## Leaflet Map:
 
 To build the leaflet map, the first step was to create separate variables for
-the latitude and longitude, as both were combined in the original dataset. This was the most intensive data cleaning necessary for the project. The code then generates the base OpenStreetMap layer, as well as grouped circle markers for each squirrel.
+the latitude and longitude, as both were combined in the original dataset. This 
+was the most intensive data cleaning necessary for the project. The code then 
+generates the base OpenStreetMap layer, as well as grouped circle markers for 
+each squirrel.
 
 ```{r leaflet-map}
 
+# Cleaning the strange formatting from the original dataset
 squirrels <- squirrels |>
   mutate(lng = substring(`Lat/Long`, 8, 22),
          lat = substring(`Lat/Long`, 26, 40))
-
 squirrels$lng <- as.numeric(squirrels$lng)
 squirrels$lat <- as.numeric(squirrels$lat)
 
+# Resolving an issue with the substring function that sent 200 squirrels to 
+# Colombia
+squirrels <- squirrels |>
+  mutate(
+    lat = if_else(
+      condition = lat < 10,
+      true = lat + 40,
+      false = lat
+    )
+  )
+
+# Generating the leaflet map
 squirrels_map <- leaflet(squirrels) |>
   addTiles() |>
   setView(lng = -73.9651,
@@ -58,16 +73,17 @@ squirrels_map <- leaflet(squirrels) |>
              fillColor = squirrels$`Primary Fur Color`,
              popup = squirrels$`Unique Squirrel ID`)
 
+# Saving the HTML widget
 saveWidget(squirrels_map, file = "index.html", selfcontained = TRUE)
-
 ```
 
 
 
 ### Final Plot 1:
-
+This plot describes
 
 ```{r squirrel-activities}
+# Creating a "No Activity" variable
 activities <- squirrels |>
   mutate("No Activity" = case_when (Running == FALSE & 
                                     Chasing == FALSE & 
@@ -76,6 +92,8 @@ activities <- squirrels |>
                                     Foraging == FALSE
                                     ~ TRUE,
                                   )) |>
+  
+# Counting the number of squirrels observed doing each activity
   select(Shift, Running, Chasing, Climbing, Eating, Foraging, "No Activity") |>
   pivot_longer(
     cols = c(Running, Chasing, Climbing, Eating, Foraging, "No Activity"),
@@ -87,10 +105,13 @@ activities <- squirrels |>
   group_by(Activity) |>
   mutate(Total_Frequency = sum(Frequency)) |>
   ungroup() |>
+  
+# Expressing with percentages
   group_by(Shift) |>
   mutate(Percent = (100*(Frequency / sum(Frequency)))) |>
   ungroup()
 
+# Generating the plot with paired bars dividing the AM and PM shifts
 ggplot(activities, aes(x = reorder(Activity, -Total_Frequency), 
                       y = Percent, fill = Shift)) +
   geom_col(position = "dodge") +
@@ -99,7 +120,11 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
     x = "Squirrel Behavior",
     y = "Percentage"
   ) +
+  
+# Using a more distinctive color palette
   scale_fill_brewer(palette = "Paired")
+
+# Saving the plot
   ggsave("squirrelActivity.png", plot = get_last_plot(), width = 6, height = 3)
 ```
 
@@ -108,6 +133,7 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
 
 ```{r squirrel-human-behavior}
 
+# A similar bar plot to investigate squirrel-human interactions
 squirrels %>%
   select(Shift, Approaches, Indifferent, `Runs from`) %>%
   pivot_longer(
@@ -117,6 +143,8 @@ squirrels %>%
   ) %>%
   filter(Observed == TRUE) %>%
   count(Shift, Interaction, name = "Frequency") %>%
+  
+# Constructing plot divided by AM and PM shift
   ggplot(aes(
     x = Interaction,
     y = Frequency,
@@ -130,11 +158,8 @@ squirrels %>%
     fill = "Time of shift"
   ) 
 
+ggsave("squirrelHumanActivity.png", plot = get_last_plot(), width = 6, height = 3)
+
 ```
 
-### Plot 3: ___________
-
-Add more plot sections as needed. Each project should have at least 3 plots, but talk to me if you have fewer than 3.
-
-### Plot 4: ___________ 
 

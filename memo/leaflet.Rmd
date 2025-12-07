@@ -13,8 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 squirrels <- squirrels |>
   mutate(lng = substring(`Lat/Long`, 8, 22),
          lat = substring(`Lat/Long`, 26, 40)) |>
-  
-
 squirrels$lng <- as.numeric(squirrels$lng)
 squirrels$lat <- as.numeric(squirrels$lat)
 
