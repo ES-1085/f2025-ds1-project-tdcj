@@ -40,7 +40,7 @@ was the most intensive data cleaning necessary for the project. The code then
 generates the base OpenStreetMap layer, as well as grouped circle markers for 
 each squirrel.
 
-```{r leaflet-map}
+```{r leaflet-map, fig.alt = "Map showing each squirrel observed in the dataset. The map has markers in the squirrel's primary color showing where each squirrel was observed in Central Park."}
 
 # Cleaning the strange formatting from the original dataset
 squirrels <- squirrels |>
@@ -77,7 +77,7 @@ squirrels_map <- leaflet(squirrels) |>
 saveWidget(squirrels_map, file = "index.html", selfcontained = TRUE)
 ```
 
-```{r squirrel-activities}
+```{r squirrel-activities, fig.alt = "Vertical bar chart comparing squirrel activities to the activities' observed frequency. Each activity has two bars, one for the AM, or morning, shift, and one for the PM, or afternoon/evening, shift. Out of all activities, squirrels are most likely to be observed foraging. Squirrels are more likely to be foraging or eating in the afternoon and more likely to be running, chasing, or climbing in the morning. A bar for no activcity is also present, with frequency nearly equal between shifts." }
 # Creating a "No Activity" variable
 activities <- squirrels |>
   mutate("No Activity" = case_when (Running == FALSE & 
@@ -126,7 +126,7 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
 
 #### Final Plot 3
 
-```{r squirrel-human-behavior}
+```{r squirrel-human-behavior, fig.alt = "A vertical bar chart showing the frequency of squirrel-human interactions, or whether a squirrels approaches, runs from, or is indifferent to humans. Each type of interaction has two bars, one for the AM, or morning, shift, and one for the PM, or afternoon/evening, shift. Squirrels are most likely to be indifferent to humans. The frequency of approaching or indifference does not differ between morning or afternoon, but squirrels are more likely to run away during the afternoon."}
 
 # A similar bar plot to investigate squirrel-human interactions
 squirrels %>%
