@@ -1,6 +1,6 @@
 Analyzing squirrel behavior in Central Park
 ================
-Cate, Dillon
+Cate, Dillon, Tomas
 
 ``` r
 library(tidyverse)
