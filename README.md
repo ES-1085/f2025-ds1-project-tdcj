@@ -1,6 +1,6 @@
 Analyzing squirrel behavior in Central Park
 ================
-by Team name
+by Cate, Dillon, and Tomas
 
 ## Summary
 
@@ -12,6 +12,8 @@ words.
 Your results with proper output and
 graphics go in your handout, this space is for a brief summary of
 your project.
+
+#
 
 ## Handout
 
