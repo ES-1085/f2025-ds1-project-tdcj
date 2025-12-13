@@ -77,6 +77,8 @@ squirrels_map <- leaflet(squirrels) |>
 saveWidget(squirrels_map, file = "index.html", selfcontained = TRUE)
 ```
 
+# The following bar plot compares the frequency of squirrel activities in the AM # and PM shifts.
+
 ```{r squirrel-activities, fig.alt = "Vertical bar chart comparing squirrel activities to the activities' observed frequency. Each activity has two bars, one for the AM, or morning, shift, and one for the PM, or afternoon/evening, shift. Out of all activities, squirrels are most likely to be observed foraging. Squirrels are more likely to be foraging or eating in the afternoon and more likely to be running, chasing, or climbing in the morning. A bar for no activcity is also present, with frequency nearly equal between shifts." }
 # Creating a "No Activity" variable
 activities <- squirrels |>
@@ -123,12 +125,13 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
   ggsave("squirrelActivity.png", plot = get_last_plot(), width = 6, height = 3)
 ```
 
+# Similar to above, this bar plot discusses squirrel-human interactions, and is 
+# separated by the AM and PM shift.
 
 #### Final Plot 3
 
 ```{r squirrel-human-behavior, fig.alt = "A vertical bar chart showing the frequency of squirrel-human interactions, or whether a squirrels approaches, runs from, or is indifferent to humans. Each type of interaction has two bars, one for the AM, or morning, shift, and one for the PM, or afternoon/evening, shift. Squirrels are most likely to be indifferent to humans. The frequency of approaching or indifference does not differ between morning or afternoon, but squirrels are more likely to run away during the afternoon."}
 
-# A similar bar plot to investigate squirrel-human interactions
 squirrels %>%
   select(Shift, Approaches, Indifferent, `Runs from`) %>%
   pivot_longer(
@@ -139,7 +142,6 @@ squirrels %>%
   filter(Observed == TRUE) %>%
   count(Shift, Interaction, name = "Frequency") %>%
   
-# Constructing plot divided by AM and PM shift
   ggplot(aes(
     x = Interaction,
     y = Frequency,
