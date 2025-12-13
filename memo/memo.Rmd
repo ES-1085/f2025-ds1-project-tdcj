@@ -1,6 +1,6 @@
 ---
-title: "Project memo"
-author: "Team name"
+title: "Analyzing squirrel behavior in Central Park"
+author: "Cate, Dillon, Tomas"
 output: github_document
 always_allow_html: true
 ---

@@ -1,6 +1,10 @@
-Project memo
+Analyzing squirrel behavior in Central Park
 ================
+<<<<<<< HEAD
 Team name
+=======
+Cate, Dillon, Tomas
+>>>>>>> 810b27f101902b74f7d1bc9393f7b92aad64eb66
 
 ``` r
 library(tidyverse)
@@ -14,6 +18,7 @@ squirrels <- read_csv("../data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data
 ```
 
 ## Loading the RColorBrewer pallette “Paired,” which includes pairs of light
+<<<<<<< HEAD
 
 ## and dark shades.
 
@@ -23,6 +28,17 @@ my_colors <- brewer.pal(n = 4, name = "Paired")
 
 ### Final Plot 1 - Leaflet Map:
 
+=======
+
+## and dark shades.
+
+``` r
+my_colors <- brewer.pal(n = 4, name = "Paired")
+```
+
+### Final Plot 1 - Leaflet Map:
+
+>>>>>>> 810b27f101902b74f7d1bc9393f7b92aad64eb66
 To build the leaflet map, the first step was to create separate
 variables for the latitude and longitude, as both were combined in the
 original dataset. This was the most intensive data cleaning necessary
@@ -79,8 +95,11 @@ squirrels_map <- leaflet(squirrels) |>
 saveWidget(squirrels_map, file = "index.html", selfcontained = TRUE)
 ```
 
+<<<<<<< HEAD
 # The following bar plot compares the frequency of squirrel activities in the AM \# and PM shifts.
 
+=======
+>>>>>>> 810b27f101902b74f7d1bc9393f7b92aad64eb66
 ``` r
 # Creating a "No Activity" variable
 activities <- squirrels |>
@@ -125,6 +144,7 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
 ```
 
 <img src="memo_files/figure-gfm/squirrel-activities-1.png" alt="Vertical bar chart comparing squirrel activities to the activities' observed frequency. Each activity has two bars, one for the AM, or morning, shift, and one for the PM, or afternoon/evening, shift. Out of all activities, squirrels are most likely to be observed foraging. Squirrels are more likely to be foraging or eating in the afternoon and more likely to be running, chasing, or climbing in the morning. A bar for no activcity is also present, with frequency nearly equal between shifts."  />
+<<<<<<< HEAD
 
 ``` r
 # Saving the plot
@@ -135,9 +155,18 @@ ggplot(activities, aes(x = reorder(Activity, -Total_Frequency),
 
 # separated by the AM and PM shift.
 
+=======
+
+``` r
+# Saving the plot
+  ggsave("squirrelActivity.png", plot = get_last_plot(), width = 6, height = 3)
+```
+
+>>>>>>> 810b27f101902b74f7d1bc9393f7b92aad64eb66
 #### Final Plot 3
 
 ``` r
+# A similar bar plot to investigate squirrel-human interactions
 squirrels %>%
   select(Shift, Approaches, Indifferent, `Runs from`) %>%
   pivot_longer(
@@ -148,6 +177,10 @@ squirrels %>%
   filter(Observed == TRUE) %>%
   count(Shift, Interaction, name = "Frequency") %>%
   
+<<<<<<< HEAD
+=======
+# Constructing plot divided by AM and PM shift
+>>>>>>> 810b27f101902b74f7d1bc9393f7b92aad64eb66
   ggplot(aes(
     x = Interaction,
     y = Frequency,
